@@ -1,4 +1,9 @@
-const {makeCircle} = require('../external/smallest-enclosing-circle')
+const { makeCircle } = require('../../external/smallest-enclosing-circle')
+const program = require('commander');
+
+program
+    .option('--numberOfPoints [value]')
+    .parse(process.argv);
 
 const generateRandomPoints = (n = 2) => {
     let ret = new Array(n)
@@ -15,7 +20,7 @@ const generateRandomPoints = (n = 2) => {
 
 
 console.time();
-const points = generateRandomPoints(Math.pow(10, 8));
+const points = generateRandomPoints(program.numberOfPoints ? program.numberOfPoints : 2);
 console.timeEnd();
 
 console.time();
