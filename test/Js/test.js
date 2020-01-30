@@ -18,11 +18,21 @@ const generateRandomPoints = (n = 2) => {
     return ret;
 }
 
+const NUMBER_OF_ITERATION = 5
+let results = []
 
-console.time();
-const points = generateRandomPoints(program.numberOfPoints ? program.numberOfPoints : 2);
-console.timeEnd();
+for (let i = 0; i < NUMBER_OF_ITERATION; i++) {
+    let startTime = new Date();
+    const points = generateRandomPoints(program.numberOfPoints ? program.numberOfPoints : 2);
+    console.log(new Date() - startTime)
 
-console.time();
-console.log(makeCircle(points))
-console.timeEnd();
+    startTime = new Date();
+    console.log(makeCircle(points))
+    let diffTime = new Date() - startTime;
+    console.log(diffTime)
+
+    results.push(diffTime);
+    
+}
+
+console.log(results.reduce((a, b) => a + b, 0) / NUMBER_OF_ITERATION)

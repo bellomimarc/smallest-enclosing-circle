@@ -1,33 +1,35 @@
 from lib.pkg_smallestEnclosingCircle.smallestEnclosingCircle import smallestEnclosingCircle
 import random
-import datetime
 import sys 
+from math import pow
+import time
 
 n = int(sys.argv[1])
-coordinates = []
 
 def generate_points(n = 1):
+    coordinates = [None] * n
     for i in range(n):
-        x = random.random()
-        y = random.random()
-        coordinates.append([x,y])
+        coordinates[i] = [random.random() * pow(10, 9), random.random() * pow(10, 9)]
     return coordinates
 
 '''
 Start Code
 '''
-for j in range (5):
+NUMBER_OF_ITERATION = 1
+results = []
+
+for j in range (NUMBER_OF_ITERATION):
     print("Iteration n°:" + str(j))
-    start = datetime.datetime.utcnow()
+    start_time = time.time()
     points = generate_points(n)
-    end = datetime.datetime.utcnow()
-    diff = end - start
 
-    print("Duration generation: " + str(diff))
+    print("--- %s ms ---" % (round(time.time() - start_time, 4) * 1000))
 
-    startEnc = datetime.datetime.utcnow()
-    smallestEnclosingCircle.make_circle(points)
-    endEnc = datetime.datetime.utcnow()
-    diffEnc = endEnc - startEnc
+    start_time = time.time()
+    print(smallestEnclosingCircle.make_circle(points))
 
-    print("Duration enclosing: "+ str(diffEnc))
+    diffTime = round(time.time() - start_time, 4) * 1000
+    results.append(diffTime)
+    print("--- %s ms ---" % diffTime)
+
+print(sum(results) / NUMBER_OF_ITERATION)
